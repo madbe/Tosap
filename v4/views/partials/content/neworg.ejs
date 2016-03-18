@@ -1,0 +1,12 @@
+<h1>Create an Organization</h1>
+
+<% if(error != 'null') { %>
+	<p> ERROR: <%= error %></p>
+<% } %>
+
+<form method="post" action="/bo/org">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" /><span>Organization Name:</span>
+  <input type="text" name="org[Name]" required="required"/><br/><span>User email:</span>
+  <input type="email" name="org[userEmail]" required="required"/>
+  <input type="submit"/>
+</form>

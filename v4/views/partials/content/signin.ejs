@@ -1,0 +1,17 @@
+<h1>Create an Account</h1>
+
+<% if(error != 'null') { %>
+	<p> ERROR: <%= error %></p>
+<% }; %>
+
+<form method="post">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>" /><span>First Name:</span>
+  <input type="text" name="firstName" required="required"/><br/><span>Last Name:</span>
+  <input type="text" name="lastName" required="required"/><br/><span>User Name:</span>
+  <input type="text" name="username" required="required"/><br/><span>Email:</span>
+  <input type="email" name="email" required="required"/><br/><span>Password:</span>
+  <input type="password" name="password" required="required"/><br/><span>Role:</span>
+  <input type="text" name="role" required="required"/><br/><span>System Admin:</span>
+  <input type="checkbox" name="isActive" /><br/>
+  <input type="submit"/>
+</form>

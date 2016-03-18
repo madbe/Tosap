@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<% include partials/template/head.ejs %>
+  </head>
+  <body class="<%= page %>">
+  	<% include partials/template/header.ejs %>
+ 
+	<section class="layout">
+		
+		<div class="container primary">
+			<% include partials/content/dashboard.ejs %>	
+		</div><!-- primary -->
+
+		<aside class="secondary">
+			
+		</aside><!-- secondary -->
+
+	</section><!-- layout -->
+
+	<% include partials/template/footer.ejs %>
+    <% include partials/template/jssources.ejs %>
+
+  </body>
+</html>
