@@ -9,7 +9,7 @@ var router = express.Router();
 
 // Render the new organization page.
 //-----------------------------------------------------------
-router.get('/bo/org/new', utils.requireLogin, function(req, res){
+router.get('/bo/org/new', utils.requireLogin, function(req, res) {
 	res.render('neworg', {
 		title: 'New Organization',
 		page: 'organization',

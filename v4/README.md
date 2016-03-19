@@ -8,6 +8,8 @@ Todo:
  * add morgan for loging.
  * add the Roles and Permissions modules.
  * add the ACL module.
+ * add email registertion module.
+ * add password reset module.
 
 ToCheack:
  * debug on server not working.
@@ -21,5 +23,6 @@ Process:
 		--------------------------------------------------------------	
    	    * The same process for the admin users.
 
+* adding the ACL - Access Control List module.
  
  

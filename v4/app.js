@@ -2,6 +2,7 @@ var express    = require('express'),
     bodyParser = require('body-parser'),
     path 	   = require('path'),
     mongoose   = require('mongoose'),
+    acl        = require('acl'),
     bcrypt     = require('bcryptjs'), // hash the password
     csrf       = require('csurf'), // ccsrf protection prevent as from submiting form that we don't what to submit
     uuid       = require('node-uuid'), // Generate long random id
@@ -24,11 +25,35 @@ module.exports.createApp = function(){
 		indexRoutes     = require('./routes/index'),
 		usersRoutes     = require('./routes/users'),
 		orgRoutes		= require('./routes/organization'),
-		printersRoutes	= require('./routes/printer'),
+		printersRoutes	= require('./routes/printer');
 	
 	// connect db using Mongoose APIs
-	mongoose.connect(dbConfig.url);
+    mongoose.connect(dbConfig.mongoUrl, function(err){
+        if(err) console.log('MongoDb: Connection error: ' + err);
+    });
+    // Connect Acl to mongodb
+    mongoose.connection.on('open', function(ref){
+        console.log('Connected to mongo server.');
+        console.log("Lets do this to " + mongoose.connection.db);
+        acl = new acl(new acl.mongodbBackend(mongoose.connection.db, 'acl_'));
+        
+         /* now assign permissions to roles */
 
+        // allow guests to view posts
+            acl.allow("guest", "/index", "view");
+        // allow registered users to view and create posts
+        //acl.allow("registered users", "post", ["view", "create"]);
+
+        // allow administrators to perform any action on posts
+        //
+            acl.allow("admin", "/", "*");
+            acl.allow("sysAdmin","/bo/org/new", "*");
+    });
+    mongoose.connection.on('error', function (err) {
+        console.log('Could not connect to mongo server!');
+        console.log(err);
+    });
+    
 	// Settings 
 	// view engine setup
 	app.set('view engine', 'ejs');
@@ -53,7 +78,7 @@ module.exports.createApp = function(){
 	app.use(csrf());
 	// adding the simpleAuth middleware
 	app.use(middleware.simpleAuth);
-	
+    
 	// use 'XSRF-TOKEN' in the cookie to preventing cross-site request Forgery
 	// set the crfToken in locals for global use
 	app.use(function (req, res, next) {

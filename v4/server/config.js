@@ -1,5 +1,6 @@
 module.exports = {
 	// Server ports & IP   
 	serverPORT: process.env.PORT || "3000",
-	serverIP: process.env.IP || "localhost"
+	serverIP: process.env.IP || "localhost",
+    serverHOST: process.env.HOST || "localhost"
 };
