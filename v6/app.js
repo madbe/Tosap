@@ -36,11 +36,11 @@ module.exports = {
         var dbConn = startDB.connectDb();
 
         console.log("app -->", dbConn);
-        var aclConn = startAcl.connectAcl(dbConn, function(aclConn){
-            console.log("app.acl -->", aclConn);
-            
+        var aclConn = startAcl.connectAcl(dbConn, function(acl){
+            console.log("app.acl -->", acl);
+            return acl;
         });
-        
+        console.log("app.acl 2 -->", aclConn);
         
         
         

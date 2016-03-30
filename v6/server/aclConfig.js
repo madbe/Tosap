@@ -2,22 +2,22 @@ nodeAcl = require('acl');
 
 //-----------------------------------------------------------------------
 // The function connect to the DB and set the ACL roles
-// @param conn: DB connection.
-// @return acl: acl Object
+// @param { object } dbConn - DB connection.
+// @return { object } acl - acl Object
 //-----------------------------------------------------------------------
-module.exports.connectAcl = function(conn, callback) {
+module.exports.connectAcl = function(dbConn, callback) {
     // Connect Acl to mongodb 
-    conn.connection.on('connected', function (ref) {
+    dbConn.connection.on('connected', function (ref) {
         console.log('Connected to mongoDB server.');
-        console.log("Lets do this to " + conn.connection.name);
+        console.log("Lets do this to " + dbConn.connection.name);
         
-        var mongoBackend = new nodeAcl.mongodbBackend(conn.connection.db, "acl_");
+        var mongoBackend = new nodeAcl.mongodbBackend(dbConn.connection.db, "acl_");
         acl = new nodeAcl(mongoBackend, logger('acl_'));
         console.log('aclCnfig.acl-->'+acl);
         // call The setAclRoles(acl) function and set the Routes and Roles to the ACL DB
         setAclRoles(acl);
         // return an ACL object
-        callback(acl);
+        return callback(acl);
         
     }); //----end of connected----
 }
