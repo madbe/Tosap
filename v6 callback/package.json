@@ -1,0 +1,29 @@
+{
+  "name": "auth",
+  "version": "1.0.0",
+  "private": true,
+  "description": "",
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "acl": "^0.4.9",
+    "async": "^2.0.0-rc.2",
+    "bcryptjs": "^2.3.0",
+    "body-parser": "^1.15.0",
+    "client-sessions": "^0.7.0",
+    "csurf": "^1.8.3",
+    "debug": "^2.2.0",
+    "ejs": "^2.4.1",
+    "express": "^4.13.4",
+    "express-sanitizer": "^1.0.1",
+    "method-override": "^2.3.5",
+    "mongoose": "^4.4.6",
+    "node-uuid": "^1.4.7",
+    "path": "^0.12.7",
+    "q": "^1.4.1"
+  },
+  "devDependencies": {},
+  "author": "Ben Madar",
+  "license": "ISC"
+}
