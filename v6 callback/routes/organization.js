@@ -8,10 +8,15 @@ var utils = require('../server/utils'); // require the utiletis
 var router = express.Router();
 
 module.exports = function(acl) {
+    
+    router.get('/', [utils.requireLogin, acl.middleware()], function(req, res) { //, acl.middleware()
+        res.json("This is the org page");
+    });
 
+  
     // Render the new organization page.
     //-----------------------------------------------------------
-    router.get('/new', [utils.requireLogin], function(req, res) { //, acl.middleware()
+    router.get('/new', [utils.requireLogin,  acl.middleware(1)], function(req, res) { //, acl.middleware()
         res.render('neworg', {
             title: 'New Organization',
             page: 'organization',

@@ -6,7 +6,7 @@ var utils = require('../server/utils');
 
 var router = express.Router();
 
-
+module.exports = function(acl) {
     //-----------------------------------------------------------
     // Render the registration page rout.
     //-----------------------------------------------------------
@@ -49,9 +49,11 @@ var router = express.Router();
                 }
                 res.render('register', {title: 'Register', page: 'register', error: error});
             } else {
-                // after the user register we create the user session and redirect
-                // to the dashboard
+                // after the user register we create the user session
+                // Set the user Permissions
+                // and redirect to the dashboard
                 utils.createUserSession(req, res, user);
+                utils.createUserAcl(acl, user);
                 res.redirect('/dashboard');
             }
         })
@@ -116,7 +118,8 @@ var router = express.Router();
         res.redirect('/');
     }); // end of logout
     
-module.exports = router;
-    
+return router;    
+}
+   
 // use array of defrent middleware
 // [ authenticated, acl.middleware( 1, get_user_id ) ]

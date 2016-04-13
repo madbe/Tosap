@@ -1,7 +1,7 @@
 var express    = require('express'),
     sessions   = require('client-sessions'); // sessions by mozila
 
-//--------------------------------------------------------------
+/**--------------------------------------------------------------
 // Given a user object:
 // 
 // - Store the user object as a req.user
@@ -11,7 +11,7 @@ var express    = require('express'),
 //  @param {Object} req - The http request object.
 //  @param {Object} res - The http response object.
 //  @param {Object} user - A user object.
-//--------------------------------------------------------------
+//-------------------------------------------------------------- */
 module.exports.createUserSession = function(req, res, user){
     console.log('createUserSession: ' + user.id)
 	var userSession = {
@@ -28,6 +28,25 @@ module.exports.createUserSession = function(req, res, user){
 	req.session.user = userSession; // update the user object
 	req.user = userSession; // set the user info from the db to the req.user
     res.locals.user = req.user; // set the res.locals for all the tamplates
+};
+
+/**--------------------------------------------------------------
+//  Given a user and ACL object:
+// 
+// - Create user object with UserID and Role
+// - Set a ACL Permissions Role to the user
+//
+//  @param {Object} acl - The ACL object.
+//  @param {Object} user - A user object.
+//-------------------------------------------------------------- */
+module.exports.createUserAcl = function(acl, user){
+    console.log('createUserACl: ' + user.id)
+	var userAcl = {
+        userId: user.id.toString(),
+		role: user.role,
+    };
+    console.log(userAcl);
+    acl.addUserRoles(userAcl.userId, userAcl.role); // set the user ACL to the db from the userAcl
 };
 
 //--------------------------------------------------------------

@@ -64,7 +64,7 @@ var nodeAcl     = require('acl'),
 function setAclRoles(acl){
     
         superAdminRole = { // Equivalent to Sys Admin
-        name: 'super admin',
+        name: 'super-admin',
         resources: [
             '/orgs',
             '/org/new',
@@ -132,7 +132,7 @@ function setAclRoles(acl){
     // Inherit roles
     //  Every superAdmin is allowed to do what admin do
     //  Every admin is allowed to do what users do
-    acl.addRoleParents( 'superAdmin', 'admin' );
+    acl.addRoleParents( 'super-admin', 'admin' );
     acl.addRoleParents( 'admin', 'user' );
 };
 

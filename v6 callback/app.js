@@ -25,67 +25,11 @@ var express         = require('express'),
 //--------------------------------------------------------------
 defineRouts = function(app, acl){
     var indexRoutes     = require('./routes/index'),
-        usersRoutes     = require('./routes/users'),
+        usersRoutes     = require('./routes/users')(acl),
         orgRoutes       = require('./routes/organization')(acl),
         printersRoutes	= require('./routes/printer');
-            
-        // Routes
-        app.use('/', indexRoutes);
-        app.use('/org', orgRoutes);//
-        app.use(usersRoutes);//'/org/:id/users',
-        app.use('/org/:id/printers', printersRoutes);
-        // app.use('/org/:id/catalogs', printersRoutes);
-        // app.use('/org/:id/campaigns', printersRoutes);
-}
-module.exports.createApp = function(){
-    // TODO: pass the acl to each routes
-    var app             = express();
-    // var indexRoutes     = require('./routes/index'),
-    //     usersRoutes     = require('./routes/users'),
-    //     orgRoutes       = require('./routes/organization'),
-    //     printersRoutes	= require('./routes/printer');   
-    
-    
-    startAcl.connectAcl(startDB.connectDb(),function (err, aclConn) { 
-        /* do some stuff with acl conn */
-        console.log("app.acl 2 -->", aclConn);
-        defineRouts(app, aclConn);
-    });
-    // var dbConn = startDB.connectDb();
-    // console.log("app -->", dbConn);
-    // startAcl.connectAcl(dbConn)
-    // .then(function(aclConn){
-    //     console.log("app.acl 2 -->", aclConn);
-    //     defineRouts(app, aclConn);
-    // })
-    // .fail(function (error) {
-    //     // error returns error message if either first or last name are null or undefined
-    //     console.log("app -->", error);
-    // });
-    
-    // startDB.connectDb()
-    // .then(function(dbConn){
-    //     console.log("app -->", dbConn);
-    //     debug("app -->", dbConn);
-    // }).fail(function(error){
-    //     console.log(error);
-    // });
-    
-    // startDB.connectDb(function(error,result){
-    //     if(result) console.log("app -->", result);
-    //     else console.log("app -->", error);
-    // })
-    
-    // connect db using Mongoose APIs
-    //var aclConn = startAcl.connectAcl(startDB.connectDb());
-    //console.log("app -->", dbConn);
-    
-    // var aclConn = startAcl.connectAcl(dbConn, function(){
-    //     indexRoutes(acl);
-    
-    // });
         
-    // Settings   
+        // Settings   
     // view engine setup
     app.set('view engine', 'ejs');
 
@@ -122,9 +66,9 @@ module.exports.createApp = function(){
     });
     
     // Routes
-    // app.use('/', indexRoutes);
-    // app.use('/org', orgRoutes);//
-    // app.use(usersRoutes);//'/org/:id/users',
+    app.use('/', indexRoutes);
+    app.use('/org', orgRoutes);//
+    app.use(usersRoutes);//'/org/:id/users',
     // app.use('/org/:id/printers', printersRoutes);
     // app.use('/org/:id/catalogs', printersRoutes);
     // app.use('/org/:id/campaigns', printersRoutes);
@@ -139,8 +83,19 @@ module.exports.createApp = function(){
         var err = new Error('Not Found');
         err.status = 404;
         next(err);
+    });    
+}
+module.exports.createApp = function(){
+    // TODO: pass the acl to each routes
+    var app = express();
+    
+    startAcl.connectAcl(startDB.connectDb(),function (err, aclConn) { 
+        if(err) debug('ACL: Acl Connection error: ' + err); 
+        /* do some stuff with acl conn */
+        console.log("app.acl 2 -->", aclConn);
+        defineRouts(app, aclConn);
     });
-
+    
     return app;
 }
     
