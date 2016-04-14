@@ -9,7 +9,7 @@ var router = express.Router();
 
 module.exports = function(acl) {
     
-    router.get('/org', [utils.requireLogin, acl.middleware()], function(req, res) { //, acl.middleware()
+    router.get('/orgs', [utils.requireLogin, acl.middleware()], function(req, res) { //, acl.middleware()
         res.json("This is the org page");
         //acl.userRoles( get_user_id( req, res ), function( error, roles ){
         //    res.send( 'User: ' + JSON.stringify( req.user ) + ' Roles: ' + JSON.stringify( roles ) );
