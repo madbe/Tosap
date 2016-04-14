@@ -9,14 +9,17 @@ var router = express.Router();
 
 module.exports = function(acl) {
     
-    router.get('/', [utils.requireLogin, acl.middleware()], function(req, res) { //, acl.middleware()
+    router.get('/org', [utils.requireLogin, acl.middleware()], function(req, res) { //, acl.middleware()
         res.json("This is the org page");
+        //acl.userRoles( get_user_id( req, res ), function( error, roles ){
+        //    res.send( 'User: ' + JSON.stringify( req.user ) + ' Roles: ' + JSON.stringify( roles ) );
+        //});
     });
 
   
     // Render the new organization page.
     //-----------------------------------------------------------
-    router.get('/new', [utils.requireLogin,  acl.middleware(1)], function(req, res) { //, acl.middleware()
+    router.get('/new', [utils.requireLogin, acl.middleware()], function(req, res) { //, acl.middleware() utils.checkPermission("org/new", "create")
         res.render('neworg', {
             title: 'New Organization',
             page: 'organization',
@@ -28,7 +31,15 @@ module.exports = function(acl) {
     });
 
     return router;
+};
+
+function get_user_id( req, res ) {
+
+    // Since numbers are not supported by node_acl in this case, convert
+    //  them to strings, so we can use IDs nonetheless.
+    return req.user && req.user.id.toString() || false;
 }
+
 
     // app.post('/bo/org',utils.requireLogin,function(req,res) {
     // 	if(!(req.user.role === "superAdmin")){

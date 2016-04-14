@@ -66,14 +66,14 @@ function setAclRoles(acl){
         superAdminRole = { // Equivalent to Sys Admin
         name: 'super-admin',
         resources: [
-            '/orgs',
-            '/org/new',
-            '/orgs/:id',
-            '/orgs/:id/edit',
-            '/orgs/:id/users',
-            '/orgs/:id/users/new',
-            '/orgs/:id/users/:id/edit',
-            '/orgs/:id/users/:id'
+            'orgs',
+            'orgs/new',
+            'orgs/:id',
+            'orgs/:id/edit',
+            'orgs/:id/users',
+            'orgs/:id/users/new',
+            'orgs/:id/users/:id/edit',
+            'orgs/:id/users/:id'
             ],
         permissions: '*'
     };
@@ -81,14 +81,14 @@ function setAclRoles(acl){
     adminRole = { // Equivalent to Super Admin
         name: 'admin',
         resources: [
-            '/orgs/:id/users',
-            '/orgs/:id/users/new',
-            '/orgs/:id/users/:id/edit',
-            '/orgs/:id/users/:id',
-            '/orgs/:id/printers',
-            '/orgs/:id/printers/new',
-            '/orgs/:id/printers/:id/edit',
-            '/orgs/:id/printers/:id'
+            'orgs/:id/users',
+            'orgs/:id/users/new',
+            'orgs/:id/users/:id/edit',
+            'orgs/:id/users/:id',
+            'orgs/:id/printers',
+            'orgs/:id/printers/new',
+            'orgs/:id/printers/:id/edit',
+            'orgs/:id/printers/:id'
             ],
         permissions: '*'
     };
@@ -97,7 +97,7 @@ function setAclRoles(acl){
     userRole = { // Equivalent to Admin
         name: 'user',
             resources: [
-                '/orgs',
+                'orgs',
             ],
         permissions: ['get', 'post','put', 'delete']
     };
@@ -105,7 +105,7 @@ function setAclRoles(acl){
     guestRole = {
         name: 'guest',
         resources: [
-            '/index',
+            '/',
         ],
         permissions: ['view']
     };
@@ -123,7 +123,7 @@ function setAclRoles(acl){
         allRoles[role].resources.forEach(function(resource){
             
             acl.allow(allRoles[role].name, resource, allRoles[role].permissions);
-            // console.log(allRoles[role].name, resource, allRoles[role].permissions);
+            console.log(allRoles[role].name, resource, allRoles[role].permissions);
         });
         // console.log("---------------------------------------------------------");
     };

@@ -40,13 +40,19 @@ module.exports.createUserSession = function(req, res, user){
 //  @param {Object} user - A user object.
 //-------------------------------------------------------------- */
 module.exports.createUserAcl = function(acl, user){
-    console.log('createUserACl: ' + user.id)
+    console.log('createUserACl: ' + user.id);
 	var userAcl = {
         userId: user.id.toString(),
-		role: user.role,
+		role: user.role
     };
     console.log(userAcl);
-    acl.addUserRoles(userAcl.userId, userAcl.role); // set the user ACL to the db from the userAcl
+    acl.addUserRoles(userAcl.userId, userAcl.role, function(err){
+        if (err){
+            console.log("ERROR :", err.message);
+        }else {
+            console.log("user Role created");
+        }
+    }); // set the user ACL to the db from the userAcl
 };
 
 //--------------------------------------------------------------
@@ -64,4 +70,55 @@ module.exports.requireLogin = function(req, res, next){
 		//other wise we let the req come trow
 		next();
 	}
+};
+
+/**
+* checkPermission
+* checks if a user has permission to perform an action on a specified resource
+*  
+*  @param {string} resource - resource being accessed
+*  @param {string/array} action - action(s) being performed on the resource
+*  @param {object} req - express request object
+*  @param {object} res - express response object
+*  @param {object} next - express middleware next object
+*/
+
+module.exports.checkPermission = function(resource, action){
+    var middleware = false;  // start out assuming this is not a middleware call
+
+    return function(req, res, acl, next){
+        // check if this is a middleware call
+        if(next){
+            // only middleware calls would have the "next" argument
+            middleware = true;  
+        }
+
+        var userID = req.session.user.id;  // get user id property from express request
+
+        // perform permissions check
+        acl.isAllowed(userID, resource, action, function(err, result) {
+            // return results in the appropriate way
+            switch (middleware) {
+                case true:
+                    if(result){
+                        // user has access rights, proceed to allow access to the route
+                        next();
+                    } else {
+                        // user access denied
+                        var checkError = new Error("user does not have permission to perform this action on this resource");
+                        next(checkError);  // stop access to route
+                    }
+                    return;
+                    
+                case false:
+                    if(result){
+                        // user has access rights
+                        return true;
+                    } else {
+                        // user access denied
+                        return false;
+                    }
+            }
+        });
+    }
 }

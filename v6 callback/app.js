@@ -24,6 +24,7 @@ var express         = require('express'),
 // @returns {Object} - An Express app object.
 //--------------------------------------------------------------
 defineRouts = function(app, acl){
+    // TODO: pass the acl to each routes
     var indexRoutes     = require('./routes/index'),
         usersRoutes     = require('./routes/users')(acl),
         orgRoutes       = require('./routes/organization')(acl),
@@ -56,7 +57,7 @@ defineRouts = function(app, acl){
     app.use(csrf());
     // adding the simpleAuth middleware
     app.use(middleware.simpleAuth);
-
+    //app.use(acl.middleware());
     app.use(function (req, res, next) {
         var token = req.csrfToken();
         res.cookie('XSRF-TOKEN', token); // use 'XSRF-TOKEN' in the cookie to preventing cross-site request Forgery
@@ -67,7 +68,7 @@ defineRouts = function(app, acl){
     
     // Routes
     app.use('/', indexRoutes);
-    app.use('/org', orgRoutes);//
+    app.use('/orgs', orgRoutes);//
     app.use(usersRoutes);//'/org/:id/users',
     // app.use('/org/:id/printers', printersRoutes);
     // app.use('/org/:id/catalogs', printersRoutes);
@@ -84,9 +85,9 @@ defineRouts = function(app, acl){
         err.status = 404;
         next(err);
     });    
-}
+};
 module.exports.createApp = function(){
-    // TODO: pass the acl to each routes
+
     var app = express();
     
     startAcl.connectAcl(startDB.connectDb(),function (err, aclConn) { 
@@ -97,6 +98,6 @@ module.exports.createApp = function(){
     });
     
     return app;
-}
+};
     
 
