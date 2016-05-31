@@ -1,0 +1,63 @@
+<html>
+  <head>
+    <title>File upload Node.js</title>
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery.form/3.51/jquery.form.min.js"></script>
+    <script type="text/javascript" src="js/uploadProgress.js"></script>
+  </head>
+  
+  <body>
+      <form id="uploadForm"
+          enctype="multipart/form-data"
+          action="/api/photo"
+          method="post">
+
+      <input type="file" name="file"  id="file" class="input-file" data-multiple-caption="{count} files selected" multiple />
+      <label for="file"><span>Choose a file</span></label>
+      <input  type="submit" value="Upload File" name="submit">
+      
+      <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+    </form>
+    <div>
+        <p class="styled">
+          <span class="percent">0%</span>
+          <progress  max="100" value="0"></progress>
+        </p>
+        <div><span id = "status"></span></div>
+      </div>
+    <!-- <div class="progress">
+        <div class="bar"></div >
+        <div class="percent">0%</div >
+    </div> -->
+    
+
+
+  </body>
+  
+  
+  <!-- <script>
+  $(document).ready(function() {
+
+    $('#uploadForm').submit(function() {
+		  $("#status").empty().text("File is uploading...");
+
+      $(this).ajaxSubmit({
+        error: function(xhr) {
+            status('Error: ' + xhr.status);
+        },
+
+        success: function(response) {
+  				console.log(response)
+  				$("#status").empty().text(response);
+        }
+      });
+    });
+	});
+
+//	return false;
+//    });    
+//});
+  </script> -->
+</html>
