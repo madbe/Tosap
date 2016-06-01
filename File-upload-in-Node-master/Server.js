@@ -54,14 +54,18 @@ app.get('/',function(req,res){
 });
 
 app.post('/api/photo',function(req,res){
+  
+  
 	upload(req, res, function(err) {
+    var raw = new Buffer(req.files[0].buffer.toString(), 'ascii');
 		if(err) {
 			return res.end("Error uploading file.");
 		}
-    console.log(req.files);
+    console.log(raw.toString());
     // parseFiles(req.files);
-    //console.log(req.buffer.toJSON());
-		res.end("File is uploaded" + req.files.buffer);
+    // console.log(req.raw);
+    
+		res.end("File is uploaded");
 	});
 });
 
@@ -75,9 +79,9 @@ app.listen(3000,function(){
 //       });    
 // }
 
-function filesPath (err, data) {
-  var newPath = __dirname + "/public/uploadsDirectoryname/" + element.name;
-  fs.writeFile(newPath, data, function (err) {
-    if(err) { console.log(err); }
-  });
-}
+// function filesPath (err, data) {
+//   var newPath = __dirname + "/public/uploadsDirectoryname/" + element.name;
+//   fs.writeFile(newPath, data, function (err) {
+//     if(err) { console.log(err); }
+//   });
+// }

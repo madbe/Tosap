@@ -1,0 +1,20 @@
+{
+    "Catalog":[
+        {
+            "name":"productName",
+            "SKU":"SKU number",
+            "tags":[
+                "tagDescription1",
+                "tagDescription2"
+            ]
+        },
+        {
+            "name":"productName ",
+            "SKU":"SKU number",
+            "tags":[
+                "tagDescription1",
+                "tagDescription2"
+            ]
+        }
+    ]
+}
