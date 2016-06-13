@@ -1,0 +1,24 @@
+<section>
+  <div>
+      <% if(error != 'null') { %>
+          <p> ERROR: <%= error %></p>
+      <% }; %>
+  </div>
+
+  <form id="uploadForm"
+        enctype="multipart/form-data"
+        action="/uploads/catalog"
+        role= "form"
+        method="post">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input type="file" name="file"  id="file" class="input-file" data-multiple-caption="{count} files selected" multiple />
+    <label for="file">Choose a file</label>
+    <input  type="submit" value="Upload File" name="submit">
+  </form>
+
+  <p class="styled">
+    <span class="percent">0%</span>
+    <progress  max="100" value="0"></progress>
+  </p>
+  <div><span id = "status"></span></div>
+</section>

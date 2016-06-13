@@ -1,0 +1,24 @@
+<header class="container">
+	<div class="row border-buttom">
+		<nav class="navbar navbar-Static-top" role="navigation">
+			<section class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-minimalize minimalize-styl-2 btn btn-primary" href="/">
+						<i class="fa fa-bars"></i>	
+						
+					</a>
+				<b>	TOSAP+</b>
+				</div><!-- branding -->
+
+				<ul class="nav navbar-top-links navbar-right">
+					<% if (!currentUser) { %>
+						<li><a href="/login">Sign In</a></li>
+					<% } else { %>
+						<li><span class="m-r-sm text-muted welcome-message">Wellcome to TOSAP+ <%= user.role %> <%= user.firstName %> <%= user.lastName %></span> 
+						<li><a href="/logout"><i class="fa fa-sign-out" aria-hidden="true"></i>Log out</a></li>
+					<% }; %>
+				</ul><!-- nav -->
+			</section><!-- layout -->	
+		</nav><!-- hero -->
+	</div>
+</header>

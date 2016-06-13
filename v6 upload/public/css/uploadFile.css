@@ -1,0 +1,124 @@
+@import url(http://fonts.googleapis.com/css?family=Expletus+Sans);
+
+    
+/* *, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+} */
+
+body { 
+	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+	padding: 30px
+}
+
+form {
+	display: block;
+	margin: 20px 20px;
+	background: #eee;
+	border-radius: 10px;
+	padding: 15px
+
+}
+
+.styled{
+	position: relative;
+	height: 1.5em;
+	line-height: 1.5em;
+	text-align: center;
+	width: 25em;
+}
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.input-file + label {
+    font-size: inherit;
+    font-weight: 700;
+    color: white;
+    background-color: black;
+    display: inline-block;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+    background-color: red;
+}
+
+.input-file + label {
+  cursor: pointer; /* "hand" cursor */
+}
+
+.input-file:focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.input-file + label * {
+  pointer-events: none;
+}
+
+.percent {
+	position: absolute;
+	height:inherit;
+	width: inherit;
+	
+	/* position:absolute;
+	display:inline-block;
+	top:3px;
+	left:48%; */
+}
+
+progress {
+	/* Reset the default appearance */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+	height: inherit;
+	width: inherit;
+	
+	/* Firefox */
+	border: none;
+	background: #EEE;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.2) inset;
+  
+}
+
+progress::-webkit-progress-bar {
+	background: #EEE;
+	box-shadow: 0 2px 3px rgba(0,0,0,0.2) inset;
+	border-radius: 3px;
+}
+
+progress::-webkit-progress-value {
+	background-color: #1ab394;
+	border-radius: 3px;
+}
+
+progress::-moz-progress-bar {
+	background-color: #1ab394;
+	border-radius: 3px;
+}
+
+
+/* .progress {
+	position:relative;
+	width:400px;
+	border: 1px solid #ddd;
+	padding: 1px;
+	border-radius: 3px;
+}
+.bar {
+	background-color: #B4F5B4;
+	width:0%;
+	height:20px;
+	border-radius: 3px;
+} */
